@@ -1,8 +1,14 @@
 from flask import *
-
+from flask.ext.httpauth import HTTPBasicAuth
 app=Flask(__name__)
-
-
+auth=HTTPBasicAuth()
+@auth.get_password
+def get_password(username):
+    if username=='raj': 
+        return 'python'
+@auth.error_handler
+def unauthorized():
+    return abort(401)
 tasks=[
         {
           'id':1,
@@ -16,6 +22,7 @@ def index():
     return "hello world"
 
 @app.route('/todo/tasks',methods=['GET'])
+@auth.login_required
 def get_task():
     return jsonify({'tasks':tasks})
 
