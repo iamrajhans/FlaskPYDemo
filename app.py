@@ -16,8 +16,8 @@ tasks=[
           'desc':u'flask is awesome'    
         }   
      ]
+#----- Initial Route-----#     
 @app.route('/')
-
 def index():
     return "hello world"
 
